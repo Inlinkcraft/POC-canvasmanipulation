@@ -5,7 +5,7 @@
 package com.mycompany.underfloorheatingapp.utils.transform;
 
 import java.util.List;
-import com.mycompany.underfloorheatingapp.utils.matrix.Matrix;
+import com.mycompany.underfloorheatingapp.utils.algebra.Matrix.Matrix;
 
 /**
  *

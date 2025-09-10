@@ -30,91 +30,17 @@ public class UnderfloorHeatingApp extends JFrame {
         super("Smart Underfloor Heating System");
 
         // Set up the main window properties
-        setSize(1000, 700);
+        setSize(1600, 900);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Center the window
-
-        // Create the main tabbed panel
-        tabbedPane = new JTabbedPane();
-
-        // Add the different tabs to the application
-        tabbedPane.addTab("Dashboard", createDashboardPanel());
-        tabbedPane.addTab("Graphs", createGraphsPanel());
-        tabbedPane.addTab("Schedules", createSchedulesPanel());
-        tabbedPane.addTab("Room Designer", createRoomDesignerPanel());
-
-        // Add the tabbed panel to the main frame
+	
+	Canvas viewport = new Canvas();
         add(tabbedPane);
 
         // Make the window visible
         setVisible(true);
     }
-
-    /**
-     * Creates the dashboard panel for real-time monitoring and control.
-     * @return A JPanel representing the dashboard.
-     */
-    private JPanel createDashboardPanel() {
-        JPanel dashboardPanel = new JPanel(new BorderLayout(10, 10));
-        dashboardPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-
-        JLabel titleLabel = new JLabel("System Dashboard", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        dashboardPanel.add(titleLabel, BorderLayout.NORTH);
-
-        // Placeholder for zone-specific controls and data
-        JPanel zonesPanel = new JPanel(new GridLayout(0, 1, 5, 5));
-        zonesPanel.setBorder(BorderFactory.createTitledBorder("Zone Status"));
-
-        // This is a dummy example. In a real app, this would be dynamic.
-        for (int i = 1; i <= 3; i++) {
-            JPanel zone = new JPanel(new FlowLayout(FlowLayout.LEFT));
-            JLabel zoneLabel = new JLabel("Zone " + i + ": ");
-            JLabel tempLabel = new JLabel("Current Temp: " + (new Random().nextInt(10) + 18) + "°C");
-            JButton controlButton = new JButton("Adjust");
-
-            zone.add(zoneLabel);
-            zone.add(tempLabel);
-            zone.add(controlButton);
-            zonesPanel.add(zone);
-        }
-
-        dashboardPanel.add(zonesPanel, BorderLayout.CENTER);
-
-        return dashboardPanel;
-    }
-
-    /**
-     * Creates the graphs panel for data visualization.
-     * @return A JPanel representing the graphs view.
-     */
-    private JPanel createGraphsPanel() {
-        JPanel graphsPanel = new JPanel(new BorderLayout());
-        graphsPanel.setBorder(BorderFactory.createTitledBorder("Temperature Trends"));
-
-        // TODO: This is where you would integrate a professional charting library like JFreeChart.
-        // For demonstration, we'll use a simple placeholder panel.
-
-        JLabel instructionLabel = new JLabel("Graphing functionality will be implemented here.", SwingConstants.CENTER);
-        graphsPanel.add(instructionLabel, BorderLayout.CENTER);
-
-        return graphsPanel;
-    }
-
-    /**
-     * Creates the schedules panel for setting heating schedules.
-     * @return A JPanel representing the schedules view.
-     */
-    private JPanel createSchedulesPanel() {
-        JPanel schedulesPanel = new JPanel(new BorderLayout());
-        schedulesPanel.setBorder(BorderFactory.createTitledBorder("Weekly Schedules"));
-
-        JLabel instructionLabel = new JLabel("Schedule management will be implemented here.", SwingConstants.CENTER);
-        schedulesPanel.add(instructionLabel, BorderLayout.CENTER);
-
-        return schedulesPanel;
-    }
-
+ 
     /**
      * Creates the room designer panel.
      * This panel contains a canvas for drawing the room and controls for placing furniture and generating the cable path.

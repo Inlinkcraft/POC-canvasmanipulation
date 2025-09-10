@@ -10,7 +10,13 @@ import java.awt.Graphics2D;
  *
  * @author Antoine
  */
-public interface Renderable {
+public interface Renderable{
+
 	public boolean isVisible();
-	public void render(Graphics2D g2d);
+	public int getZindex();
+	
+	public Vertex[] getVertex();
+	public int[] getTri();
+	public Vec4[] getTriColors();
+	
 }

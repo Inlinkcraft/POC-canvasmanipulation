@@ -6,7 +6,7 @@ package com.mycompany.underfloorheatingapp.Fourniture;
 
 import com.mycompany.underfloorheatingapp.actions.Interactable;
 import com.mycompany.underfloorheatingapp.rendering.Renderable;
-import com.mycompany.underfloorheatingapp.utils.matrix.Matrix;
+import com.mycompany.underfloorheatingapp.utils.algebra.Matrix.Matrix;
 import com.mycompany.underfloorheatingapp.utils.transform.Transform;
 import com.mycompany.underfloorheatingapp.utils.transform.Unit;
 import java.awt.Graphics2D;
@@ -66,6 +66,5 @@ public class GenericFourniture implements Renderable, Interactable{
 		return true;
 	}
 
-	
 	
 }
