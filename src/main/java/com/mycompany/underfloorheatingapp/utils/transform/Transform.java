@@ -5,7 +5,6 @@
 package com.mycompany.underfloorheatingapp.utils.transform;
 
 import com.mycompany.underfloorheatingapp.utils.algebra.Matrix.Mat4x4;
-import java.util.List;
 import com.mycompany.underfloorheatingapp.utils.algebra.Matrix.Matrix;
 import com.mycompany.underfloorheatingapp.utils.algebra.Vector.Vec3;
 
@@ -37,15 +36,44 @@ public class Transform {
             return scale;
         }
         
-	public Mat4x4 getTransformMatrix() {
-		Mat4x4 translation = new Mat4x4(
+	public Matrix getTransformMatrix() {
+		
+                Mat4x4 t_scale = new Mat4x4(
+                        scale.getX(), 0.0, 0.0, 0.0,
+                        0.0, scale.getY(), 0.0, 0.0,
+                        0.0, 0.0, scale.getZ(), 0.0,
+                        0.0, 0.0, 0.0, 1.0
+                );
+            
+                Mat4x4 t_translation = new Mat4x4(
                         1.0, 0.0, 0.0, position.getX(),
                         0.0, 1.0, 0.0, position.getY(),
                         0.0, 0.0, 1.0, position.getZ(),
                         0.0, 0.0, 0.0, 1.0
                 );
                 
-                return translation;
+                Mat4x4 t_rotation_x = new Mat4x4(
+                        1.0, 0.0, 0.0, 0.0,
+                        0.0, Math.cos(rotation.getX()), - Math.sin(rotation.getX()), 0.0,
+                        0.0, Math.sin(rotation.getX()), Math.cos(rotation.getX()), 0.0,
+                        0.0, 0.0, 0.0, 1.0
+                );
+                
+                Mat4x4 t_rotation_y = new Mat4x4(
+                        Math.cos(rotation.getY()), 0.0, Math.sin(rotation.getY()), 0.0,
+                        0.0, 1.0, 0.0, 0.0,
+                        - Math.sin(rotation.getY()), 0.0, Math.cos(rotation.getY()), 0.0,
+                        0.0, 0.0, 0.0, 1.0
+                );
+                
+                Mat4x4 t_rotation_z = new Mat4x4(
+                        Math.cos(rotation.getX()), - Math.sin(rotation.getX()), 0.0, 0.0,
+                        Math.sin(rotation.getX()), Math.cos(rotation.getX()), 0.0, 0.0,
+                        0.0, 0.0, 1.0, 0.0,
+                        0.0, 0.0, 0.0, 1.0
+                );
+                
+                return t_translation.dot( t_rotation_x.dot(t_rotation_y.dot(t_rotation_z.dot(t_scale))));
 	}
 	
 }

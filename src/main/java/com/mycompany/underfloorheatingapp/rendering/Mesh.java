@@ -6,11 +6,15 @@ package com.mycompany.underfloorheatingapp.rendering;
 
 /**
  *
- * @author Antoine
+ * @author antoi
  */
-public interface Renderable{
-
-	public boolean isVisible();
-	public void render(Viewport viewport);
+public class Mesh{
+    
+    private Vertex[] vertex;
+    private int[] triIndex;
+    
+    public void render(Viewport viewport){
         
+    }
+    
 }
