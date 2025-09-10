@@ -4,8 +4,10 @@
  */
 package com.mycompany.underfloorheatingapp.utils.transform;
 
+import com.mycompany.underfloorheatingapp.utils.algebra.Matrix.Mat4x4;
 import java.util.List;
 import com.mycompany.underfloorheatingapp.utils.algebra.Matrix.Matrix;
+import com.mycompany.underfloorheatingapp.utils.algebra.Vector.Vec3;
 
 /**
  *
@@ -13,30 +15,37 @@ import com.mycompany.underfloorheatingapp.utils.algebra.Matrix.Matrix;
  */
 public class Transform {
 
-	private Unit posx;
-	private Unit posy;	
-	private double rotationZ;
+	private Vec3 position;
+        private Vec3 rotation;
+        private Vec3 scale;
 
-	public Transform(Unit posx, Unit posy, double rotationZ){
-		this.posx = posx;
-		this.posy = posy;
-		this.rotationZ = rotationZ;
+	public Transform(Vec3 position, Vec3 rotation, Vec3 scale){
+		this.position = position;
+		this.rotation = rotation;
+		this.scale = scale;
 	}
 
-        public Unit getX(){
-            return posx;
+        public Vec3 getPosition(){
+            return position;
         }
         
-        public Unit getY(){
-            return posy;
+        public Vec3 getRotation(){
+            return rotation;
         }
         
-	public Matrix getTransformMatrix() {
-		return new Matrix(3, 3, List.of(
-			Math.cos(rotationZ), -Math.sin(rotationZ), posx.getUnit(),
-			Math.sin(rotationZ), Math.cos(rotationZ), posy.getUnit(),
-			0.0, 0.0, 1.0
-		));
+        public Vec3 getScale(){
+            return scale;
+        }
+        
+	public Mat4x4 getTransformMatrix() {
+		Mat4x4 translation = new Mat4x4(
+                        1.0, 0.0, 0.0, position.getX(),
+                        0.0, 1.0, 0.0, position.getY(),
+                        0.0, 0.0, 1.0, position.getZ(),
+                        0.0, 0.0, 0.0, 1.0
+                );
+                
+                return translation;
 	}
 	
 }

@@ -171,5 +171,13 @@ public class Matrix {
 		return result;
 	}
 
+        public Matrix Transpose(){
+            Matrix result = new Matrix(nbCol, nbRow);
+            for (int i = 0; i < nbRow; i++){
+                result.setCol(i, rows[i]);
+            }
+            return result;
+        }
+        
 	// cross product ??
 }
