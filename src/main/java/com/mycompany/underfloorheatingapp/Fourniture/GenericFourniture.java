@@ -6,8 +6,11 @@ package com.mycompany.underfloorheatingapp.Fourniture;
 
 import com.mycompany.underfloorheatingapp.actions.Interactable;
 import com.mycompany.underfloorheatingapp.rendering.Renderable;
+import com.mycompany.underfloorheatingapp.utils.matrix.Matrix;
 import com.mycompany.underfloorheatingapp.utils.transform.Transform;
 import com.mycompany.underfloorheatingapp.utils.transform.Unit;
+import java.awt.Graphics2D;
+import java.util.List;
 
 /**
  *
@@ -26,8 +29,26 @@ public class GenericFourniture implements Renderable, Interactable{
 	}
 
 	@Override
-	public void render() {
-		// TODO:
+	public void render(Graphics2D g2d) {
+		//double x = transform.getX().getUnit();
+                //double y = transform.getY().getUnit();
+                double halfwidth = width.getUnit() / 2.0;
+                double halfHeight = height.getUnit() / 2.0;
+            
+                Matrix vertex_def = new Matrix(3, 4, List.of(
+                        -halfwidth,  halfwidth,  halfwidth, -halfwidth,
+                        -halfHeight, -halfHeight, halfHeight, halfHeight,
+                        1.0, 1.0, 1.0, 1.0
+                ));
+                
+                Matrix vertex = Matrix.dot(transform.getTransformMatrix(), vertex_def);
+                
+                // row / col
+                g2d.drawLine((int)vertex.get(0, 0), (int)vertex.get(1, 0), (int)vertex.get(0, 1), (int)vertex.get(1, 1));
+                g2d.drawLine((int)vertex.get(0, 1), (int)vertex.get(1, 1), (int)vertex.get(0, 2), (int)vertex.get(1, 2));
+                g2d.drawLine((int)vertex.get(0, 2), (int)vertex.get(1, 2), (int)vertex.get(0, 3), (int)vertex.get(1, 3));
+                g2d.drawLine((int)vertex.get(0, 3), (int)vertex.get(1, 3), (int)vertex.get(0, 0), (int)vertex.get(1, 0));
+            
 	}
 
 	@Override

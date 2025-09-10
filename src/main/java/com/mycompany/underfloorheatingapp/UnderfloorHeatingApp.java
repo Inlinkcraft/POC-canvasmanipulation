@@ -188,8 +188,8 @@ class RoomDesignerCanvas extends JPanel {
 
 			// First, get the object position
 			Transform transform = new Transform(
-				Unit.fromInch(Math.random() * 200), 
-				Unit.fromInch(Math.random() * 200), 
+				Unit.fromInch(Math.random() * 500), 
+				Unit.fromInch(Math.random() * 500), 
 				Math.random()*2*Math.PI);
 			
 			// Second, create the fourniture
@@ -316,12 +316,9 @@ class RoomDesignerCanvas extends JPanel {
 
 
 	// Draw call
-	
-
-	
-
-
-	
+	for (Renderable renderable: renderables){
+            renderable.render(g2d);
+        }	
 
         // 4. Draw the heating cable path
         if (!cablePath.isEmpty()) {

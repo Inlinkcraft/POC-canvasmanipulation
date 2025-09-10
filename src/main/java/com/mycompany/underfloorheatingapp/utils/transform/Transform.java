@@ -23,6 +23,14 @@ public class Transform {
 		this.rotationZ = rotationZ;
 	}
 
+        public Unit getX(){
+            return posx;
+        }
+        
+        public Unit getY(){
+            return posy;
+        }
+        
 	public Matrix getTransformMatrix() {
 		return new Matrix(3, 3, List.of(
 			Math.cos(rotationZ), -Math.sin(rotationZ), posx.getUnit(),

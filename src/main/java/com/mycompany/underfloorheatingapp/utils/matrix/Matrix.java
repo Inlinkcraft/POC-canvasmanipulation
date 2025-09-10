@@ -24,17 +24,20 @@ public class Matrix {
 		
 		this.matrix = new double[col][row];
 		
-		if (data.size() == row * col) {
+		if (data != null){
+                    
+                        if (data.size() == row * col) {
 			
-			for (int i = 0; i < size; i++){
-				int cur_row = i / col;
-				int cur_col = i % col;
-				matrix[cur_col][cur_row] = data.get(i);
-			}
+                                for (int i = 0; i < size; i++){
+                                        int cur_row = i / col;
+                                        int cur_col = i % col;
+                                        matrix[cur_col][cur_row] = data.get(i);
+                                }
 			
-		} else if (data.size() != row * col){
-			throw new RuntimeException("data length must match row x col size");
-		}
+                        } else if (data.size() != row * col){
+                                throw new RuntimeException("data length must match row x col size");
+                        }
+                }
 	}
 
 	public void set(int row, int col, double value){
