@@ -2,16 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.underfloorheatingapp.utils.algebra.Matrix;
+package com.mycompany.underfloorheatingapp.utils.algebra.matrix;
 
-import com.mycompany.underfloorheatingapp.utils.algebra.Vector.Vector;
+import com.mycompany.underfloorheatingapp.utils.algebra.vector.Vector;
 import java.util.List;
 
 /**
  *
  * @author Antoine
  */
-public class Matrix {
+public class Matrice {
 	
 	private Vector[] rows;
 	private Vector[] cols;
@@ -19,16 +19,16 @@ public class Matrix {
 	private int nbCol;
 	private int size;
 
-	public Matrix(int nbRow, int nbCol){
+	public Matrice(int nbRow, int nbCol){
 		this(nbRow, nbCol, null);
 	}
 	
-	public Matrix(int nbRow, int nbCol, double value){
+	public Matrice(int nbRow, int nbCol, double value){
 		this(nbRow, nbCol, null);
 		this.fill(value);
 	}
 	
-	public Matrix(int nbRow, int nbCol, double[] data){
+	public Matrice(int nbRow, int nbCol, double[] data){
 		this.nbRow = nbRow;
 		this.nbCol = nbCol;
 		this.size = nbRow * nbCol;		
@@ -36,8 +36,24 @@ public class Matrix {
 		this.rows = new Vector[nbRow];
 		this.cols = new Vector[nbCol];
 		
+		for (int row = 0; row < nbRow; row++ ){
+			this.rows[row] = Vector.zero(nbCol);
+		}
+
+		for (int col = 0; col < nbCol; col++){
+			this.cols[col] = Vector.zero(nbRow);
+		}
+		
 		if (data != null){
-                    
+                    if (data.length == size){
+			    for (int i = 0; i < data.length; i++){
+			    	int row = i / nbCol;
+			    	int col = i % nbCol;
+				this.set(row, col, data[i]);
+			    }
+		    } else {
+			    throw new RuntimeException("Data and matrice size don't match");
+		    }
                 }
 	}
 
@@ -102,8 +118,8 @@ public class Matrix {
 		return cols[col];
 	}
 
-	public Matrix add(double scalar){
-		Matrix result = new Matrix(nbRow, nbCol, 0.0);
+	public Matrice add(double scalar){
+		Matrice result = new Matrice(nbRow, nbCol, 0.0);
 		for (int row = 0; row < nbRow; row++){
 			for (int col = 0; col < nbCol; col++){
 				result.set(row, col, this.get(row, col) + scalar);
@@ -112,11 +128,11 @@ public class Matrix {
 		return result;
 	}
 
-	public Matrix add(Matrix matrix){
+	public Matrice add(Matrice matrix){
 		if (this.nbCol != matrix.nbCol || this.nbRow != matrix.nbRow){
 			throw new RuntimeException("Matrix must match for addition");
 		}
-		Matrix result = new Matrix(nbRow, nbCol, 0.0);
+		Matrice result = new Matrice(nbRow, nbCol, 0.0);
 		for (int row = 0; row < nbRow; row++){
 			for (int col = 0; col < nbCol; col++){
 				result.set(row, col, this.get(row, col) + matrix.get(row, col));
@@ -125,8 +141,8 @@ public class Matrix {
 		return result;
 	}
 
-	public Matrix sub(double scalar){
-		Matrix result = new Matrix(nbRow, nbCol, 0.0);
+	public Matrice sub(double scalar){
+		Matrice result = new Matrice(nbRow, nbCol, 0.0);
 		for (int row = 0; row < nbRow; row++){
 			for (int col = 0; col < nbCol; col++){
 				result.set(row, col, this.get(row, col) - scalar);
@@ -135,11 +151,11 @@ public class Matrix {
 		return result;
 	}
 
-	public Matrix sub(Matrix matrix){
+	public Matrice sub(Matrice matrix){
 		if (this.nbCol != matrix.nbCol || this.nbRow != matrix.nbRow){
 			throw new RuntimeException("Matrix must match for substraction");
 		}
-		Matrix result = new Matrix(nbRow, nbCol, 0.0);
+		Matrice result = new Matrice(nbRow, nbCol, 0.0);
 		for (int row = 0; row < nbRow; row++){
 			for (int col = 0; col < nbCol; col++){
 				result.set(row, col, this.get(row, col) - matrix.get(row, col));
@@ -148,8 +164,8 @@ public class Matrix {
 		return result;
 	}
 
-	public Matrix mult(double scalar){
-		Matrix result = new Matrix(nbRow, nbCol, 0.0);
+	public Matrice mult(double scalar){
+		Matrice result = new Matrice(nbRow, nbCol, 0.0);
 		for (int row = 0; row < nbRow; row++){
 			for (int col = 0; col < nbCol; col++){
 				result.set(row, col, this.get(row, col) * scalar);
@@ -158,11 +174,11 @@ public class Matrix {
 		return result;
 	}
 	
-	public Matrix dot(Matrix matrix){
+	public Matrice dot(Matrice matrix){
 		if (this.nbCol != matrix.nbRow){
 			throw new RuntimeException("Matrix row must math the matrix col of the doted matrix");
 		}
-		Matrix result = new Matrix(nbRow, matrix.nbCol, 0.0);
+		Matrice result = new Matrice(nbRow, matrix.nbCol, 0.0);
 		for (int row = 0; row < result.nbRow; row++){
 			for (int col = 0; col < result.nbCol; col++){
 				result.set(row, col, this.getRow(row).dot(matrix.getCol(col)));
@@ -171,8 +187,8 @@ public class Matrix {
 		return result;
 	}
 
-        public Matrix Transpose(){
-            Matrix result = new Matrix(nbCol, nbRow);
+        public Matrice Transpose(){
+            Matrice result = new Matrice(nbCol, nbRow);
             for (int i = 0; i < nbRow; i++){
                 result.setCol(i, rows[i]);
             }
@@ -180,4 +196,21 @@ public class Matrix {
         }
         
 	// cross product ??
+
+	@Override
+	public String toString() {
+	
+		String result = "--------------------------------------------\n";
+
+		for (int row = 0; row < nbRow; row++){
+			for (int col = 0; col < nbCol; col++){
+				result += "\t" + this.get(row, col);
+			}
+			result += "\n";
+		}
+
+		return result + "--------------------------------------------";
+		
+	}
+
 }

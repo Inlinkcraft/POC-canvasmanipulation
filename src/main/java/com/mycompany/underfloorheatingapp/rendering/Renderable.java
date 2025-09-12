@@ -4,6 +4,8 @@
  */
 package com.mycompany.underfloorheatingapp.rendering;
 
+import com.mycompany.underfloorheatingapp.rendering.renderelements.RenderElement;
+
 /**
  *
  * @author Antoine
@@ -11,6 +13,6 @@ package com.mycompany.underfloorheatingapp.rendering;
 public interface Renderable{
 
 	public boolean isVisible();
-	public void render(Viewport viewport);
+	public RenderElement[] getRenderElements();
         
 }

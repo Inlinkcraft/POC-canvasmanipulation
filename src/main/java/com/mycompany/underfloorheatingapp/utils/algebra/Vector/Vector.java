@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.underfloorheatingapp.utils.algebra.Vector;
+package com.mycompany.underfloorheatingapp.utils.algebra.vector;
 
 /**
  *
@@ -16,6 +16,14 @@ public class Vector {
 	public Vector(double[] data){
 		this.data = data;
 		this.size = data.length;
+	}
+
+	public static Vector zero(int nbElement){
+		double[] result = new double[nbElement];
+		for (int i = 0; i < nbElement; i++){
+			result[i] = 0;
+		}
+		return new Vector(result);
 	}
 
 	public double get(int i){

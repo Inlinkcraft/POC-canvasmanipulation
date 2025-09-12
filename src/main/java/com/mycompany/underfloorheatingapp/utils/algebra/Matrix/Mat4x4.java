@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.underfloorheatingapp.utils.algebra.Matrix;
+package com.mycompany.underfloorheatingapp.utils.algebra.matrix;
 
 /**
  *
  * @author Antoine
  */
-public class Mat4x4 extends Matrix{
+public class Mat4x4 extends Matrice{
 	
 	public Mat4x4(double value){
 		super(4, 4, value);

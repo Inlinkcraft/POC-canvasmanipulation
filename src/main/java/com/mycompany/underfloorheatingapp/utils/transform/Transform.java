@@ -4,9 +4,9 @@
  */
 package com.mycompany.underfloorheatingapp.utils.transform;
 
-import com.mycompany.underfloorheatingapp.utils.algebra.Matrix.Mat4x4;
-import com.mycompany.underfloorheatingapp.utils.algebra.Matrix.Matrix;
-import com.mycompany.underfloorheatingapp.utils.algebra.Vector.Vec3;
+import com.mycompany.underfloorheatingapp.utils.algebra.matrix.Mat4x4;
+import com.mycompany.underfloorheatingapp.utils.algebra.matrix.Matrice;
+import com.mycompany.underfloorheatingapp.utils.algebra.vector.Vec3;
 
 /**
  *
@@ -36,7 +36,7 @@ public class Transform {
             return scale;
         }
         
-	public Matrix getTransformMatrix() {
+	public Matrice getTransformMatrix() {
 		
                 Mat4x4 t_scale = new Mat4x4(
                         scale.getX(), 0.0, 0.0, 0.0,
@@ -67,13 +67,14 @@ public class Transform {
                 );
                 
                 Mat4x4 t_rotation_z = new Mat4x4(
-                        Math.cos(rotation.getX()), - Math.sin(rotation.getX()), 0.0, 0.0,
-                        Math.sin(rotation.getX()), Math.cos(rotation.getX()), 0.0, 0.0,
+                        Math.cos(rotation.getZ()), - Math.sin(rotation.getZ()), 0.0, 0.0,
+                        Math.sin(rotation.getZ()), Math.cos(rotation.getZ()), 0.0, 0.0,
                         0.0, 0.0, 1.0, 0.0,
                         0.0, 0.0, 0.0, 1.0
                 );
                 
-                return t_translation.dot( t_rotation_x.dot(t_rotation_y.dot(t_rotation_z.dot(t_scale))));
+                return t_translation.dot(t_rotation_x.dot(t_rotation_y.dot(t_rotation_z.dot(t_scale))));
+		
 	}
 	
 }
